@@ -10,7 +10,7 @@ model = pickle.load(open("models/titanic_pipeline.pkl", "rb"))
 
 
 st.set_page_config(
-    page_title="ML Project - Titanic",
+    page_title="Titanic ML Project",
     page_icon="🐸",
 )
 st.title("Titanic Survival Prediction")
