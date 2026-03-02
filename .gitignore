@@ -10,6 +10,7 @@ ENV/
 dataset/
 data/
 *.csv
+*.safetensors
 
 .ipynb_checkpoints/
 

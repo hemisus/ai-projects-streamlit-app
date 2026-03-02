@@ -8,3 +8,6 @@ streamlit
 seaborn
 xgboost
 streamlit-drawable-canvas
+tqdm
+transformers
+openpyxl

@@ -3,6 +3,7 @@ from sklearn.preprocessing import OneHotEncoder
 import numpy as np
 import torch
 from PIL import Image
+import re
 
 def titanic_preprocess(df):
     df = df.copy()
@@ -30,3 +31,9 @@ def preprocess_image_forMNIST(img_array):
 
     tensor = torch.tensor(img, dtype=torch.float32).unsqueeze(0).unsqueeze(0) #(1, 1, 28, 28)로 차원 추가
     return tensor
+
+
+
+def clean_text_KOR(text):
+    text = re.sub(r"[^ㄱ-ㅎㅏ-ㅣ가-힣 ]", "", text)
+    return text.strip()
