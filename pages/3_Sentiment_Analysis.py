@@ -5,7 +5,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from utils.preprocess import clean_text_KOR
 
 LSTM_MODEL_PATH = "models/kor_sentiment_lstm_scripted_model.pt"
-ELECTRA_MODEL_PATH ="models/kor_sentiment_koelectra_model"
+HF_ELECTRA_MODEL = "Hemisus/koelectra-finetuned-nsmc"
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -14,10 +14,16 @@ model_lstm = torch.jit.load(LSTM_MODEL_PATH, map_location=device)
 model_lstm.eval()
 word_to_index = pickle.load(open("artifacts/kor_sentiment_lstm_word_to_index.pkl", "rb"))
 
-tokenizer_electra = AutoTokenizer.from_pretrained(ELECTRA_MODEL_PATH)
-model_electra = AutoModelForSequenceClassification.from_pretrained(ELECTRA_MODEL_PATH)
-model_electra.to(device)
-model_electra.eval()
+@st.cache_resource
+def load_electra():
+    tokenizer = AutoTokenizer.from_pretrained(HF_ELECTRA_MODEL, use_fast=True)
+    model = AutoModelForSequenceClassification.from_pretrained(HF_ELECTRA_MODEL)
+    model.to(device)
+    model.eval()
+    return tokenizer, model
+
+tokenizer_electra, model_electra = load_electra()
+
 
 def predict_lstm(text, model, word_to_index):
     
@@ -60,7 +66,15 @@ def predict_koelectra(text):
 
     return pred, confidence
 
-
+st.set_page_config(
+    page_title="KOR_Sentiment",
+    page_icon="🐸",
+)
+st.title("Sentiment Analysis (KOR)")
+st.write("""
+         텍스트 내용이 긍정적인/부정적인 내용인지 분류하는 모델입니다.\n
+         네이버 영화 리뷰 데이터로 학습되었으며, LSTM, KoELECTRA 모델 각각의 출력값을 확인할 수 있습니다.
+         """)
 user_input = st.text_area("문장을 입력하세요")
 
 if st.button("분석하기"):

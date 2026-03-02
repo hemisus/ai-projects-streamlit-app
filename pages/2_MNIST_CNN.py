@@ -11,7 +11,11 @@ st.set_page_config(
     )
 
 st.title("MNIST Classifier (CNN)")
-st.write("Draw a digit (0–9) and click **Predict**")
+st.write("""
+         그려진 숫자(0-9)를 예측하는 CNN모델입니다.\n
+         캔버스에 숫자(0-9)를 그리고 Predict를 눌러 모델의 예측값을 확인할 수 있습니다.\n
+         숫자를 중앙에, 크게 그릴수록 더 정확하게 예측합니다.
+         """)
 
 model = torch.jit.load("models/mnist_scripted_model.pt", map_location="cpu")
 model.eval()  #추론모드로 전환
