@@ -37,8 +37,9 @@ NSMC (네이버 영화 리뷰): https://github.com/e9t/nsmc <br>
 
 ### 사용된 모델
 텍스트 감정분류를 위한 모델로 KoELECTRA 모델이 사용되었습니다. <br>
-base: https://huggingface.co/monologg/koelectra-base-v3-discriminator
-
+base: https://huggingface.co/monologg/koelectra-base-v3-discriminator <br>
+NSMC로 학습된 KoELECTRA모델 <br>
+https://huggingface.co/Hemisus/koelectra-finetuned-nsmc
 ### 📊 사용 기술
 - Python
 - PyTorch
@@ -52,8 +53,6 @@ CUDA 사용을 위해 아래와 같이 Pytorch를 설치하였습니다. <br>
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
 
-### NSMC로 학습된 KoELECTRA모델
-https://huggingface.co/Hemisus/koelectra-finetuned-nsmc
 ### 참고한 자료
 딥 러닝 파이토치 교과서 - 입문부터 LLM 파인튜닝까지 (https://wikidocs.net/book/2788) <br>
 MNIST CNN: https://wikidocs.net/63618 <br>
